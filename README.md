@@ -1,4 +1,7 @@
-# Ready-to-hack React Skeleton 💀: React + Vite (All Cleaned-Up) + Eslint and Prettier Setup
+# AUTOCOMPLETE! (react using context, refs, useMemo, caching, using cache/refs to avoid race conditions)
+
+
+# BUILT ON: Ready-to-hack React Skeleton 💀: React + Vite (All Cleaned-Up) + Eslint and Prettier Setup
 
 ## TO CLONE IT:
 - `git clone https://github.com/edulis8/react-vite-prettier-skeleton.git` [your-new-app-name-here]
