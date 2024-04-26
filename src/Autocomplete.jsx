@@ -1,26 +1,6 @@
-import { useEffect, useState, useRef, useContext } from 'react';
-import { debounce } from 'lodash';
-import { fetchUsers } from './fetchService';
-import { AppContext } from './AppContext';
-
-// feedback
-// clarify, write what i am going to do,
-// bringing up debounce, minimum query length
-// study Context
-// race condition handling
-
-// input box in here
-// when user types in
-// we use fecthService
-// returns an array of strings
-// render strings below the form
-// as a list
-
+// GOOD PRACTICES:
 // debouncing the input
 // minimum query length 3 chars
-
-// improvements:
-// loading
 
 // SHARING DATA ACROSS COMPONENTS
 // 1) Props (callback function that parent can use):
@@ -29,38 +9,34 @@ import { AppContext } from './AppContext';
 // 2) Context Api
 // 3) Redux or Zustand or other state management library
 
-// race condition
+// RACE CONDITIONS HANDLING:
 // AbortController
 // new search term aborts older ones
 // caching search results
-// hashmap
 
 // user enters 'aaa' -------x
 // user enters 'bbb' ----x
 
-// when a fetch result comes back
+// when a fetch 'aaa' result comes back it renders, which is a problem
+
 // check cache
+// use refs to check current searchTerm, (because closure)
 // also check current searchTerm in the box
 // only render to page if searchTerm matches what is in the input box
 
-// lookup of a searchTerm to results belonging
-// {
-//   searchTerm: promise -> results;
-// }
-
-// Reject a promise
-// everytime a user gets searched
-// const newUsersPromise = fetchUsers(searchTerm) // watch this promise
-
-// [] context to get the results and display elsewhere
+// [x] context to get the results and display elsewhere
 // [x] refs to close the box
 // [x] loader
 // [x] race condition handling
 
-export default function Autocomplete() {
-  // const [users, setUsers] = useState([]);
-  const { users, setUsers } = useContext(AppContext);
+import { useEffect, useState, useRef, useContext } from 'react';
+import { debounce } from 'lodash';
+import { AppContext } from './AppContext';
+import useFetchUsers from './useFetchUser';
 
+export default function Autocomplete() {
+  const { fetchUsers } = useFetchUsers('prefix-'); // custom hook
+  const { users, setUsers } = useContext(AppContext);
   const [searchTerm, setSearchTerm] = useState('');
   const [cache, setCache] = useState({});
   const [isLoading, setIsLoading] = useState(false);
